@@ -53,6 +53,25 @@
             justify-content: center;
         }
 
+        /* 그라데이션 오버레이 - 오른쪽으로 갈수록 어두워짐 */
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to right,
+                rgba(10, 10, 10, 0) 0%,
+                rgba(10, 10, 10, 0.1) 20%,
+                rgba(10, 10, 10, 0.3) 40%,
+                rgba(10, 10, 10, 0.6) 70%,
+                rgba(10, 10, 10, 0.9) 90%,
+                rgba(10, 10, 10, 1) 100%
+            );
+            z-index: 3;
+        }
+
         .image-overlay {
             position: absolute;
             top: 0;
@@ -60,18 +79,19 @@
             right: 0;
             bottom: 0;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="coffee-beans" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="28" cy="28" r="2.5" fill="rgba(255,255,255,0.08)"/><circle cx="35" cy="15" r="2" fill="rgba(255,255,255,0.06)"/><circle cx="8" cy="30" r="2.8" fill="rgba(255,255,255,0.09)"/></pattern></defs><rect width="100" height="100" fill="url(%23coffee-beans)"/></svg>');
-            opacity: 0.4;
+            opacity: 0.3;
+            z-index: 1;
         }
 
         .image-content {
             position: relative;
-            z-index: 2;
+            z-index: 4;
             text-align: center;
             color: white;
             font-size: clamp(48px, 8vw, 120px);
             font-weight: 300;
             letter-spacing: 8px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .floating-icons {
@@ -80,7 +100,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            z-index: 1;
+            z-index: 2;
         }
 
         .floating-icon {
@@ -126,7 +146,7 @@
             animation-delay: 5s;
         }
 
-        /* Info Panel */
+        /* Info Panel - 왼쪽에 그라데이션 추가 */
         .info-panel {
             width: 400px;
             height: 100vh;
@@ -136,9 +156,29 @@
             flex-direction: column;
             justify-content: flex-start;
             position: relative;
-            border-left: none;
             overflow-y: auto;
             box-sizing: border-box;
+        }
+
+        /* 패널 왼쪽에 그라데이션 경계선 */
+        .info-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                rgba(10, 10, 10, 0.5) 0%,
+                rgba(10, 10, 10, 1) 100%
+            );
+            z-index: 1;
+        }
+
+        .info-panel > * {
+            position: relative;
+            z-index: 2;
         }
 
         .logo {
@@ -188,12 +228,14 @@
         }
 
         .video-container {
-            width: 50%; /* 폭을 더 줄임 */
-            max-width: 250px; /* 최대 크기 제한 */
+            width: 80%;
+            max-width: 300px;
             border-radius: 12px;
             overflow: hidden;
             background: #000;
             margin: 0 auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .video-container video {
@@ -205,46 +247,6 @@
         .video-container:hover {
             transform: scale(1.02);
             box-shadow: 0 10px 30px rgba(240, 138, 39, 0.3);
-        }
-
-        .video-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
-            opacity: 0.5;
-        }
-
-        .play-button {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-
-        .play-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-
-        .play-button::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-left: 16px solid white;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            margin-left: 4px;
         }
 
         .company-info {
@@ -268,11 +270,12 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-gray);
             font-size: 14px;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .info-list li:hover {
             color: var(--primary-orange);
+            transform: translateX(5px);
         }
 
         .info-list li strong {
@@ -318,6 +321,18 @@
                 order: 1;
             }
 
+            /* 모바일에서는 하단으로 그라데이션 */
+            .gradient-overlay {
+                background: linear-gradient(
+                    to bottom,
+                    rgba(10, 10, 10, 0) 0%,
+                    rgba(10, 10, 10, 0.1) 30%,
+                    rgba(10, 10, 10, 0.4) 60%,
+                    rgba(10, 10, 10, 0.8) 85%,
+                    rgba(10, 10, 10, 1) 100%
+                );
+            }
+
             .main-image {
                 background-size: cover;
                 background-position: center;
@@ -328,6 +343,17 @@
                 width: 100%;
                 padding: 40px 20px;
                 order: 2;
+            }
+
+            /* 모바일에서는 상단에 그라데이션 */
+            .info-panel::before {
+                width: 100%;
+                height: 20px;
+                background: linear-gradient(
+                    to bottom,
+                    rgba(10, 10, 10, 0.5) 0%,
+                    rgba(10, 10, 10, 1) 100%
+                );
             }
 
             .main-title {
@@ -360,7 +386,7 @@
             }
 
             .video-container {
-                height: 140px;
+                width: 90%;
             }
         }
 
@@ -384,12 +410,12 @@
             animation: slideInLeft 0.8s ease forwards;
         }
 
-        .info-panel > *:nth-child(1) { animation-delay: 0.1s; }
-        .info-panel > *:nth-child(2) { animation-delay: 0.2s; }
-        .info-panel > *:nth-child(3) { animation-delay: 0.3s; }
-        .info-panel > *:nth-child(4) { animation-delay: 0.4s; }
-        .info-panel > *:nth-child(5) { animation-delay: 0.5s; }
-        .info-panel > *:nth-child(6) { animation-delay: 0.6s; }
+        .info-panel > *:nth-child(2) { animation-delay: 0.1s; }
+        .info-panel > *:nth-child(3) { animation-delay: 0.2s; }
+        .info-panel > *:nth-child(4) { animation-delay: 0.3s; }
+        .info-panel > *:nth-child(5) { animation-delay: 0.4s; }
+        .info-panel > *:nth-child(6) { animation-delay: 0.5s; }
+        .info-panel > *:nth-child(7) { animation-delay: 0.6s; }
 
         @keyframes slideInLeft {
             to {
@@ -418,6 +444,7 @@
             color: rgba(255, 255, 255, 0.7);
             font-size: 12px;
             animation: bounce 2s infinite;
+            z-index: 5;
         }
 
         @keyframes bounce {
@@ -445,6 +472,7 @@
         <div class="image-section">
             <div class="main-image">
                 <div class="image-overlay"></div>
+                <div class="gradient-overlay"></div>
                 <div class="scroll-indicator">
                     스크롤하여 더보기 ↓
                 </div>
@@ -466,20 +494,21 @@
             </p>
 
             <div class="video-section">
-                <h3 class="video-title">Your Gallery</h3>
-                <video autoplay muted loop controls poster="images/video-thumbnail.jpg" playsinline
-                       style="width: 80%; max-width: 300px; height: auto; border-radius: 12px; display: block; margin: 0 auto;">
-                    <source src="videos/ucc3.mp4" type="video/mp4">
-                    브라우저가 비디오를 지원하지 않습니다.
-                </video>
+                <h3 class="video-title">Gallery</h3>
+                <div class="video-container">
+                    <video autoplay muted loop controls poster="images/video-thumbnail.jpg" playsinline>
+                        <source src="videos/ucc3.mp4" type="video/mp4">
+                        브라우저가 비디오를 지원하지 않습니다.
+                    </video>
+                </div>
             </div>
 
             <div class="company-info">
-                <h3 class="info-title">Unicorn Gallery Cafe</h3>
+                <h3 class="info-title">Create. Curate. Collect.</h3>
                 <ul class="info-list">
-                    <li><strong>Your Content</strong> Make your meme!</li>
-                    <li><strong>Your Curation</strong> Join curation!</li>
-                    <li><strong>Your Gallery</strong> Collect memes!</li>
+                    <li><strong>Your Content</strong> Turn it into a meme!</li>
+                    <li><strong>Your Curation</strong> Be part of the flow!</li>
+                    <li><strong>Your Gallery</strong> Collect the memes you love!</li>
                 </ul>
             </div>
 
@@ -487,18 +516,14 @@
                 <h3 class="contact-title">Contact</h3>
                 <div class="contact-info">
                     <p><strong>Email</strong> hello@unicorngallerycafe.com</p>
-                    <p><strong>Phone</strong> 02-1234-5678</p>
-                    <p><strong>Address</strong> 547, Seolleung-ro, Gangnam-gu, Seoul, Republic of Korea </p>
+                    <p><strong>Phone</strong> +82-2-567-0179</p>
+                    <p><strong>Address</strong> 547, Seolleung-ro, Gangnam-gu, Seoul, Republic of Korea</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        function playVideo() {
-            alert('실제 구현 시 여기에 비디오 재생 코드를 추가하세요.\n\n예시:\n- <video> 태그로 교체\n- YouTube/Vimeo 임베드\n- 모달 팝업으로 전체화면 재생');
-        }
-
         // Parallax effect for floating icons
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
@@ -510,25 +535,13 @@
             });
         });
 
-        // Interactive hover effects
-        document.querySelectorAll('.info-list li').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(5px)';
-                this.style.transition = 'all 0.3s ease';
-            });
-
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0)';
-            });
-        });
-
         // Mobile scroll behavior
         if (window.innerWidth <= 768) {
             window.addEventListener('scroll', function() {
                 const scrollIndicator = document.querySelector('.scroll-indicator');
-                if (window.pageYOffset > 100) {
+                if (scrollIndicator && window.pageYOffset > 100) {
                     scrollIndicator.style.opacity = '0';
-                } else {
+                } else if (scrollIndicator) {
                     scrollIndicator.style.opacity = '0.7';
                 }
             });
@@ -536,5 +549,3 @@
     </script>
 </body>
 </html>
-
-
