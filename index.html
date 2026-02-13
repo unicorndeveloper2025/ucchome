@@ -268,22 +268,44 @@
 
         .hero-cta {
             display: inline-block;
-            padding: 16px 48px;
-            background: var(--primary-orange);
-            color: white;
-            font-size: 16px; font-weight: 700;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 30px rgba(255, 87, 34, 0.5);
-            animation: fadeInUp 0.8s ease 0.6s both;
-            margin-top: 35vh;
-        }
+                padding: 16px 48px;
+                color: white;
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                font-size: 26px; font-weight: 800;
+                border-radius: 50px;
+                text-decoration: none;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                animation: fadeInUp 0.8s ease 0.6s both;
+                margin-top: 30vh;
+                position: relative;
+                margin-top: 35vh;
+                z-index: 1;
 
-        .hero-cta:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 12px 40px rgba(255, 87, 34, 0.7);
-        }
+                /* 무지개 파스텔 그라데이션 */
+                background: linear-gradient(
+                    90deg,
+                    #FF6B6B,
+                    #FF9F43,
+                    #FECA57,
+                    #2ED573,
+                    #48DBFB,
+                    #A29BFE,
+                    #FF6B6B
+                );
+                background-size: 300% 100%;
+                animation: fadeInUp 0.8s ease 0.6s both, waveMove 5s linear infinite;
+                box-shadow: 0 8px 30px rgba(255, 179, 186, 0.4);
+            }
+
+            .hero-cta:hover {
+                transform: translateY(-3px) scale(1.05);
+                box-shadow: 0 12px 40px rgba(212, 186, 255, 0.6);
+            }
+
+            @keyframes waveMove {
+                0% { background-position: 0% 50%; }
+                100% { background-position: 300% 50%; }
+            }
 
         /* ==================== FEATURES ==================== */
         .features {
@@ -593,6 +615,7 @@
 
             .hero-cta {
                 margin-top: 40vh;  /* 모바일에서 더 아래로 */
+                font-size: 14px;
             }
         }
 
@@ -640,36 +663,6 @@
                 <strong>Meme World</strong>
             </h1>
             <a href="https://memekick.com/" target="_blank" class="hero-cta">Enter MemeKick</a>
-        </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="features" id="features">
-        <div class="features-grid">
-            <div class="feature-card reveal">
-                <div class="feature-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-                    </svg>
-                </div>
-                <h3>Your Creation</h3>
-            </div>
-            <div class="feature-card reveal reveal-delay-1">
-                <div class="feature-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
-                    </svg>
-                </div>
-                <h3>Your Curation</h3>
-            </div>
-            <div class="feature-card reveal reveal-delay-2">
-                <div class="feature-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                    </svg>
-                </div>
-                <h3>Your Collection</h3>
-            </div>
         </div>
     </section>
 
